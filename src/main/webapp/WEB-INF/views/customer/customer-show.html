@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+</head>
+<body>
+    <h3>Customer([[${customer.getId()}]]):</h3>
+    <p th:text="${customer.getFirstname()}">VALUE</p>
+    <p th:text="${customer.getLastname()}">VALUE</p>
+    <p th:text="${customer.getEmail()}">VALUE</p>
+    <p th:text="${customer.getBdate()}">VALUE</p>
+    <p th:text="${customer.getPassport()}">VALUE</p>
+    <p th:text="${customer.getAddress()}">VALUE</p>
+</body>
+</html>
