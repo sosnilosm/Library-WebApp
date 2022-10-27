@@ -6,8 +6,13 @@
 </head>
 <body>
     <h3>Customers:</h3>
+    <a th:href="@{/}"><h1>Home</h1></a>
+    <a href="/customers/new"><input type="submit" value="New customer"></a>
+
+    <hr/>
+
     <div th:each="customer : ${customers}">
-        <a th:href="@{/customer/{id}(id=${customer.getId()})}">
+        <a th:href="@{/customers/{id}(id=${customer.getId()})}">
             [[${customer.getFirstname()}]] [[${customer.getLastname()}]], [[${customer.getEmail()}]]
         </a>
     </div>

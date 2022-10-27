@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+</head>
+<body>
+    <a th:href="@{/customers/}">
+        <input type="submit" value="Customers"/>
+    </a>
+
+    <hr/>
+
+    <h3>Customer([[${customer.getId()}]]):</h3>
+    <p th:text="${customer.getFirstname()}">VALUE</p>
+    <p th:text="${customer.getLastname()}">VALUE</p>
+    <p th:text="${customer.getEmail()}">VALUE</p>
+    <p th:text="${customer.getBdate()}">VALUE</p>
+    <p th:text="${customer.getPassport()}">VALUE</p>
+    <p th:text="${customer.getAddress()}">VALUE</p>
+
+    <hr/>
+
+    <p>Customer's books:</p>
+    <form th:method="DELETE" th:action="@{/customers/{id}/refund/(id=${customer.getId()})}">
+        <label for="book">Refund book: </label>
+        <select th:object="${book}" th:field="*{id}" id="book">
+            <option th:each="book : ${books}"
+                    th:value="${book.getId()}"
+                    th:text="${book.getName()}">
+                VALUE
+            </option>
+        </select>
+        <input type="submit" value="Refund"/>
+    </form>
+
+    <hr/>
+
+    <a th:href="@{/customers/{id}/edit(id=${customer.getId()})}">
+        <input type="submit" value="Edit"/>
+    </a>
+
+    <form th:method="DELETE" th:action="@{/customers/{id}(id=${customer.getId()})}">
+        <input type="submit" value="Delete">
+    </form>
+</body>
+</html>

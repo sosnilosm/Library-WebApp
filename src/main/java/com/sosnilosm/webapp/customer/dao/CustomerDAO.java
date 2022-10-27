@@ -34,4 +34,38 @@ public class CustomerDAO {
                 new BeanPropertyRowMapper<>(Customer.class) // BeanPropertyRowMapper(Customer.class)
         ).stream().findAny().orElse(null);
     }
+
+    public void insertNewCustomer(Customer customer) {
+        jdbcTemplate.update(
+                "INSERT INTO Customer(firstname, lastname, email, bdate, passport, address) " +
+                        "VALUES(?, ?, ?, ?, ?, ?)",
+                customer.getFirstname(),
+                customer.getLastname(),
+                customer.getEmail(),
+                customer.getBdate(),
+                customer.getPassport(),
+                customer.getAddress()
+        );
+    }
+
+    public void updateOneCustomer(Customer customer) {
+        jdbcTemplate.update(
+                "UPDATE Customer " +
+                        "SET firstname = ?, lastname = ?, email = ?, bdate = ?, passport = ?, address = ? WHERE id = ?",
+                customer.getFirstname(),
+                customer.getLastname(),
+                customer.getEmail(),
+                customer.getBdate(),
+                customer.getPassport(),
+                customer.getAddress(),
+                customer.getId()
+        );
+    }
+
+    public void deleteOneCustomer(int id) {
+        jdbcTemplate.update(
+                "DELETE FROM Customer WHERE id =?",
+                id
+        );
+    }
 }

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+    <h3>Books:</h3>
+    <a th:href="@{/}"><h1>Home</h1></a>
+    <a href="/books/new"><input type="submit" value="New book"></a>
+
+    <hr/>
+
+    <div th:each="book : ${books}">
+        <a th:href="@{/books/{id}(id=${book.getId()})}">[[${book.getName()}]], [[${book.getAuthor()}]], [[${book.getYear()}]]</a>
+    </div>
+</body>
+</html>
