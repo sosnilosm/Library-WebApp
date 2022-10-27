@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Sergei Sosnilo
@@ -33,6 +34,14 @@ public class CustomerDAO {
                 new Object[]{id},
                 new BeanPropertyRowMapper<>(Customer.class) // BeanPropertyRowMapper(Customer.class)
         ).stream().findAny().orElse(null);
+    }
+
+    public Optional<Customer> selectOneCustomer(String email) {
+        return jdbcTemplate.query(
+                "SELECT * FROM Customer WHERE email = ?",
+                new Object[]{email},
+                new BeanPropertyRowMapper<>(Customer.class) // BeanPropertyRowMapper(Customer.class)
+        ).stream().findAny();
     }
 
     public void insertNewCustomer(Customer customer) {

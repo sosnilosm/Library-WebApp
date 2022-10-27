@@ -1,5 +1,8 @@
 package com.sosnilosm.webapp.customer.entity;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.sql.Date;
 
 /**
@@ -7,11 +10,18 @@ import java.sql.Date;
  */
 public class Customer {
     private int id;
+    @NotEmpty(message = "Empty required field")
     private String firstname;
+    @NotEmpty(message = "Empty required field")
     private String lastname;
+    @NotEmpty(message = "Empty required field")
+    @Email(message = "Introduced invalid email")
     private String email;
     private Date bdate;
+    @NotEmpty(message = "Empty required field")
     private String passport;
+    @Pattern(regexp = "|(\\d+, \\w+, \\w+, \\w+)", message = "Incorrect address format. Format: {house number (int)}, " +
+            "{street's name (varchar)}, {city's name (varchar)}, {country's name (varchar)}")
     private String address;
 
     public Customer() {

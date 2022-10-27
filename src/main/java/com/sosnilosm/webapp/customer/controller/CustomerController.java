@@ -4,6 +4,7 @@ import com.sosnilosm.webapp.book.dao.BookDAO;
 import com.sosnilosm.webapp.book.entity.Book;
 import com.sosnilosm.webapp.customer.dao.CustomerDAO;
 import com.sosnilosm.webapp.customer.entity.Customer;
+import com.sosnilosm.webapp.customer.util.CustomerValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +19,12 @@ import javax.validation.Valid;
 @RequestMapping("/customers")
 public class CustomerController {
     private final CustomerDAO customerDAO;
+    private final CustomerValidator customerValidator;
     private final BookDAO bookDAO;
 
-    public CustomerController(CustomerDAO customerDAO, BookDAO bookDAO) {
+    public CustomerController(CustomerDAO customerDAO, CustomerValidator customerValidator, BookDAO bookDAO) {
         this.customerDAO = customerDAO;
+        this.customerValidator = customerValidator;
         this.bookDAO = bookDAO;
     }
 
@@ -46,6 +49,8 @@ public class CustomerController {
     @PostMapping()
     public String add(@ModelAttribute("customer") @Valid Customer customer,
                                 BindingResult bindingResult) {
+        customerValidator.validate(customer, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "/customers/customer-new";
         }
@@ -62,6 +67,8 @@ public class CustomerController {
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("customer") Customer customer,
                          BindingResult bindingResult) {
+        customerValidator.validate(customer, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "/customers/customer-edit";
         }

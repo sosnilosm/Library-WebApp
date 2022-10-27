@@ -1,5 +1,7 @@
 package com.sosnilosm.webapp.book.entity;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
 
 /**
@@ -7,9 +9,12 @@ import java.sql.Date;
  */
 public class Book {
     private int id;
+    @NotEmpty(message = "Empty required field")
     private String name;
+    @NotEmpty(message = "Empty required field")
     private String author;
     private Date year;
+    @Min(value = 0, message = "Must be bigger than 0")
     private int amount;
 
     public Book() {
